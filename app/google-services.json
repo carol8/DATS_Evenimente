@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "634158919587",
+    "project_id": "dats-evenimente",
+    "storage_bucket": "dats-evenimente.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:634158919587:android:24edd50a637eabd2dab416",
+        "android_client_info": {
+          "package_name": "com.carol8.datsevenimente"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "634158919587-ig4u4mvea3dv6r02b24cfnvptk4mah1e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNzEkdsfcstmyytkKAktxNq-HfoPIvPw4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "634158919587-ig4u4mvea3dv6r02b24cfnvptk4mah1e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
