@@ -1,6 +1,12 @@
 package com.carol8.datsevenimente.view;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -8,29 +14,28 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.carol8.datsevenimente.controller.EvenimenteAdapter;
-import com.carol8.datsevenimente.model.Eveniment;
 import com.carol8.datsevenimente.R;
+import com.carol8.datsevenimente.controller.ServiciiAdapter;
+import com.carol8.datsevenimente.model.Service;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class Evenimente extends Fragment {
-    private EvenimenteAdapter evenimenteAdapter;
+public class Servicii extends Fragment {
+    private ServiciiAdapter serviciiAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private ArrayList<Eveniment> evenimente;
+    private ArrayList<String> serviciiSelectate = new ArrayList<>();
+    private ArrayList<Service> servicii;
+    private TextView filtrareTextView;
 
-    public Evenimente(ArrayList<Eveniment> evenimente){
-        this.evenimente = evenimente;
+    public Servicii(ArrayList<Service> servicii) {
+        this.servicii = servicii;
     }
 
     @Override
@@ -42,32 +47,38 @@ public class Evenimente extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v =  inflater.inflate(R.layout.evenimente, container, false);
-        RecyclerView recyclerView = v.findViewById(R.id.recyclerViewEvenimente);
-        evenimenteAdapter = new EvenimenteAdapter();
-        recyclerView.setAdapter(evenimenteAdapter);
+        View v = inflater.inflate(R.layout.service, container, false);
+        RecyclerView recyclerView = v.findViewById(R.id.recyclerViewService);
+        serviciiAdapter = new ServiciiAdapter();
+
+        recyclerView.setAdapter(serviciiAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext()));
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
-        swipeRefreshLayout = v.findViewById(R.id.swipeContainerEvenimente);
+
+        swipeRefreshLayout = v.findViewById(R.id.swipeContainerService);
         swipeRefreshLayout.setOnRefreshListener(this::fetchAsync);
-        evenimenteAdapter.clear();
-        evenimenteAdapter.addAll(evenimente);
+
+        serviciiAdapter.clear();
+        serviciiAdapter.addAllServicii(servicii);
+
+        filtrareTextView = v.findViewById(R.id.filtrareTextView);
         return v;
     }
 
-    public void fetchAsync(){
+    public void fetchAsync() {
+        HashSet<String> serviciiOferite = new HashSet<>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.setFirestoreSettings(new FirebaseFirestoreSettings.Builder().setPersistenceEnabled(true).build());
-        db.collection("evenimente").orderBy("dataInceput")
+        db.collection("service")
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        for(QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                        for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
                             //Log.d(TAG, documentSnapshot.getId() + " => " + documentSnapshot.getData());
-                            evenimente.add(new Eveniment(documentSnapshot.getString("nume"), documentSnapshot.getString("url"), documentSnapshot.getTimestamp("dataInceput").toDate(), documentSnapshot.getTimestamp("dataFinal").toDate()));
+                            servicii.add(new Service(documentSnapshot.getString("nume"), documentSnapshot.getString("nrTelefon"), new ArrayList<>(Arrays.asList(documentSnapshot.getString("servicii").split(";"))), documentSnapshot.getGeoPoint("locatie")));
                         }
-                        evenimenteAdapter.clear();
-                        evenimenteAdapter.addAll(evenimente);
+                        serviciiAdapter.clear();
+                        serviciiAdapter.addAllServicii(servicii);
                         swipeRefreshLayout.setRefreshing(false);
                     } else {
                         //Log.d(TAG, "get failed with ", task.getException());

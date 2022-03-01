@@ -10,46 +10,47 @@
     android:paddingBottom="10dp">
 
     <TextView
-        android:id="@+id/eveniment_nume"
+        android:id="@+id/evenimentNume"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/eveniment_button"
+        app:layout_constraintEnd_toStartOf="@+id/evenimentButon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/eveniment_button"
+        android:id="@+id/evenimentButon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/evenimentDataFinal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/eveniment_descriere"
+        android:id="@+id/evenimentDataInceput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/eveniment_button"
+        app:layout_constraintEnd_toStartOf="@+id/evenimentButon"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/eveniment_nume" />
+        app:layout_constraintTop_toBottomOf="@+id/evenimentNume" />
 
     <TextView
-        android:id="@+id/eveniment_data"
+        android:id="@+id/evenimentDataFinal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/eveniment_descriere"
+        app:layout_constraintEnd_toStartOf="@+id/evenimentButon"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/eveniment_descriere" />
+        app:layout_constraintTop_toBottomOf="@+id/evenimentDataInceput" />
 </androidx.constraintlayout.widget.ConstraintLayout>

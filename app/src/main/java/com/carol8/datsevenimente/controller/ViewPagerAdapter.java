@@ -5,13 +5,20 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.carol8.datsevenimente.model.Eveniment;
+import com.carol8.datsevenimente.model.Service;
 import com.carol8.datsevenimente.view.Evenimente;
-import com.carol8.datsevenimente.view.Noutati;
+import com.carol8.datsevenimente.view.Servicii;
+
+import java.util.ArrayList;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
-
-    public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
+    private ArrayList<Eveniment> evenimente;
+    private ArrayList<Service> servicii;
+    public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity, ArrayList<Eveniment> evenimente, ArrayList<Service> servicii) {
         super(fragmentActivity);
+        this.evenimente = evenimente;
+        this.servicii = servicii;
     }
 
     @NonNull
@@ -19,9 +26,9 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position){
             case 1:
-                return new Noutati();
+                return new Servicii(servicii);
             default:
-                return new Evenimente();
+                return new Evenimente(evenimente);
         }
     }
 

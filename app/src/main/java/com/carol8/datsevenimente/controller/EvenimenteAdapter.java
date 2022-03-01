@@ -15,44 +15,42 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.carol8.datsevenimente.R;
-import com.carol8.datsevenimente.model.Event;
+import com.carol8.datsevenimente.model.Eveniment;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder> {
+public class EvenimenteAdapter extends RecyclerView.Adapter<EvenimenteAdapter.ViewHolder> {
 
-    private List<Event> mEvents = new ArrayList<>();
+    private List<Eveniment> mEveniments = new ArrayList<>();
 
-    public EventsAdapter() {}
+    public EvenimenteAdapter() {}
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context c = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(c);
-
-        // Inflate the custom layout
         View eventView = inflater.inflate(R.layout.item_event, parent, false);
-
-        // Return a new holder instance
-
         return new ViewHolder(eventView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Event event = mEvents.get(position);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy  HH:mm", Locale.US);
+        Eveniment eveniment = mEveniments.get(position);
 
-        holder.nameTextView.setText(event.getNume());
-        holder.descriptionTextView.setText(event.getDescriere());
-        holder.dataTextView.setText(event.getDate().toString());
+        holder.nameTextView.setText(eveniment.getNume());
+        holder.dataInceputTextView.setText("Data inceput: " + dateFormat.format(eveniment.getDataInceput()));
+        holder.dataFinalTextView.setText("Data final: " + dateFormat.format(eveniment.getDataFinal()));
         holder.buyButton.setText("Vezi detalii");
         holder.buyButton.setEnabled(true);
 
         holder.buyButton.setOnClickListener(view -> {
             try {
-                Uri uri = Uri.parse(event.getUrl());
+                Uri uri = Uri.parse(eveniment.getUrl());
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 view.getContext().startActivity(intent);
             }catch (ActivityNotFoundException e){
@@ -63,31 +61,31 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return mEvents.size();
+        return mEveniments.size();
     }
 
     public void clear() {
-        mEvents.clear();
+        mEveniments.clear();
         notifyDataSetChanged();
     }
 
     // Add a list of items -- change to type used
-    public void addAll(List<Event> list) {
-        mEvents.addAll(list);
+    public void addAll(List<Eveniment> list) {
+        mEveniments.addAll(list);
         notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView nameTextView, descriptionTextView, dataTextView;
+        public TextView nameTextView, dataInceputTextView, dataFinalTextView;
         public Button buyButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            nameTextView = itemView.findViewById(R.id.eveniment_nume);
-            descriptionTextView = itemView.findViewById(R.id.eveniment_descriere);
-            buyButton = itemView.findViewById(R.id.eveniment_button);
-            dataTextView = itemView.findViewById(R.id.eveniment_data);
+            nameTextView = itemView.findViewById(R.id.evenimentNume);
+            buyButton = itemView.findViewById(R.id.evenimentButon);
+            dataInceputTextView = itemView.findViewById(R.id.evenimentDataInceput);
+            dataFinalTextView = itemView.findViewById(R.id.evenimentDataFinal);
         }
     }
 }
