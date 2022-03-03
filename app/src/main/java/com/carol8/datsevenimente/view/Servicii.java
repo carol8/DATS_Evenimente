@@ -44,7 +44,6 @@ public class Servicii extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.service, container, false);
         RecyclerView recyclerView = v.findViewById(R.id.recyclerViewService);
         serviciiAdapter = new ServiciiAdapter();
@@ -65,14 +64,11 @@ public class Servicii extends Fragment {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-                            //Log.d(TAG, documentSnapshot.getId() + " => " + documentSnapshot.getData());
                             servicii.add(new Service(documentSnapshot.getString("nume"), documentSnapshot.getString("nrTelefon"), new ArrayList<>(Arrays.asList(documentSnapshot.getString("servicii").split(";"))), documentSnapshot.getGeoPoint("locatie")));
                         }
                         serviciiAdapter.clear();
                         serviciiAdapter.addAllServicii(servicii);
                         swipeRefreshLayout.setRefreshing(false);
-                    } else {
-                        //Log.d(TAG, "get failed with ", task.getException());
                     }
                 });
     }

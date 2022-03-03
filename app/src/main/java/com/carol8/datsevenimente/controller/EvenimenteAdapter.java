@@ -3,8 +3,6 @@ package com.carol8.datsevenimente.controller;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.carol8.datsevenimente.R;
 import com.carol8.datsevenimente.model.Eveniment;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +25,7 @@ import java.util.Locale;
 
 public class EvenimenteAdapter extends RecyclerView.Adapter<EvenimenteAdapter.ViewHolder> {
 
-    private List<Eveniment> mEveniments = new ArrayList<>();
+    private final List<Eveniment> mEveniments = new ArrayList<>();
 
     public EvenimenteAdapter() {}
 

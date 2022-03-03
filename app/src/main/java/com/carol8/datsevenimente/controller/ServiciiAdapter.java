@@ -1,9 +1,7 @@
 package com.carol8.datsevenimente.controller;
 
-import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
@@ -22,7 +20,6 @@ import com.carol8.datsevenimente.model.Service;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -31,14 +28,10 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 
 public class ServiciiAdapter extends RecyclerView.Adapter<ServiciiAdapter.ViewHolder>{
-    private ArrayList<Service> mServicii = new ArrayList<>();
+    private final ArrayList<Service> mServicii = new ArrayList<>();
 
     public ServiciiAdapter() {}
 
@@ -47,12 +40,7 @@ public class ServiciiAdapter extends RecyclerView.Adapter<ServiciiAdapter.ViewHo
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context c = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(c);
-
-        // Inflate the custom layout
         View eventView = inflater.inflate(R.layout.item_service, parent, false);
-
-        // Return a new holder instance
-
         return new ServiciiAdapter.ViewHolder(eventView, c);
     }
 
@@ -88,7 +76,6 @@ public class ServiciiAdapter extends RecyclerView.Adapter<ServiciiAdapter.ViewHo
         notifyDataSetChanged();
     }
 
-    // Add a list of items -- change to type used
     public void addAllServicii(List<Service> list) {
         mServicii.addAll(list);
         notifyDataSetChanged();
