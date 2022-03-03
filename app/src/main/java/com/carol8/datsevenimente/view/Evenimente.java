@@ -15,17 +15,12 @@ import android.view.ViewGroup;
 import com.carol8.datsevenimente.controller.EvenimenteAdapter;
 import com.carol8.datsevenimente.model.Eveniment;
 import com.carol8.datsevenimente.R;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.carol8.datsevenimente.model.ListaEvenimente;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -34,7 +29,7 @@ import java.util.Objects;
 public class Evenimente extends Fragment {
     private EvenimenteAdapter evenimenteAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private ArrayList<Eveniment> evenimente = new ArrayList<>();
+    private final ListaEvenimente evenimente = new ListaEvenimente();
 
     public Evenimente(){
 
@@ -61,17 +56,27 @@ public class Evenimente extends Fragment {
     }
 
     public void fetchAsync(){
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.setFirestoreSettings(new FirebaseFirestoreSettings.Builder().setPersistenceEnabled(true).build());
-        db.collection("evenimente").orderBy("dataInceput")
+        fetchAsyncDatabase();
+    }
+
+    public void fetchAsyncDatabase(){
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+        firebaseFirestore.setFirestoreSettings(new FirebaseFirestoreSettings.Builder().setPersistenceEnabled(true).build());
+        firebaseFirestore.collection("evenimente").orderBy("dataInceput")
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        for(QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-                            evenimente.add(new Eveniment(documentSnapshot.getString("nume"), documentSnapshot.getString("url"), documentSnapshot.getTimestamp("dataInceput").toDate(), documentSnapshot.getTimestamp("dataFinal").toDate()));
+                        for(int index = 0; index < task.getResult().size(); index++) {
+                            DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(index);
+                            evenimente.actualizareLista(new Eveniment(documentSnapshot.getId(), documentSnapshot.getString("nume"),
+                                    documentSnapshot.getString("url"),
+                                    Objects.requireNonNull(documentSnapshot.getTimestamp("dataInceput")).toDate(),
+                                    Objects.requireNonNull(documentSnapshot.getTimestamp("dataFinal")).toDate(),
+                                    firebaseStorage.getReference(documentSnapshot.getString("nume") + "/icon.jpg")));
                         }
                         evenimenteAdapter.clear();
-                        evenimenteAdapter.addAll(evenimente);
+                        evenimenteAdapter.addAll(evenimente.getEvenimente());
                         swipeRefreshLayout.setRefreshing(false);
                     }
                 });

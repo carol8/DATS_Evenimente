@@ -1,12 +1,9 @@
 package com.carol8.datsevenimente.view;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -23,14 +20,12 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
+import java.util.Objects;
 
 public class Servicii extends Fragment {
     private ServiciiAdapter serviciiAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private ArrayList<Service> servicii = new ArrayList<>();
+    private final ArrayList<Service> servicii = new ArrayList<>();
 
     public Servicii() {
 
@@ -64,7 +59,10 @@ public class Servicii extends Fragment {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-                            servicii.add(new Service(documentSnapshot.getString("nume"), documentSnapshot.getString("nrTelefon"), new ArrayList<>(Arrays.asList(documentSnapshot.getString("servicii").split(";"))), documentSnapshot.getGeoPoint("locatie")));
+                            servicii.add(new Service(documentSnapshot.getString("nume"),
+                                    documentSnapshot.getString("nrTelefon"),
+                                    new ArrayList<>(Arrays.asList(Objects.requireNonNull(documentSnapshot.getString("servicii")).split(";"))),
+                                    documentSnapshot.getGeoPoint("locatie")));
                         }
                         serviciiAdapter.clear();
                         serviciiAdapter.addAllServicii(servicii);

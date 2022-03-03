@@ -1,27 +1,14 @@
 package com.carol8.datsevenimente.controller;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
-import android.view.View;
-import android.view.ViewTreeObserver;
 import android.view.Window;
 
 import com.carol8.datsevenimente.R;
-import com.carol8.datsevenimente.model.Eveniment;
-import com.carol8.datsevenimente.model.Service;
-import com.carol8.datsevenimente.view.Evenimente;
-import com.carol8.datsevenimente.view.Servicii;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreSettings;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {

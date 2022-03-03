@@ -1,5 +1,6 @@
 package com.carol8.datsevenimente.controller;
 
+import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -41,7 +42,7 @@ public class ServiciiAdapter extends RecyclerView.Adapter<ServiciiAdapter.ViewHo
         Context c = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(c);
         View eventView = inflater.inflate(R.layout.item_service, parent, false);
-        return new ServiciiAdapter.ViewHolder(eventView, c);
+        return new ViewHolder(eventView, c);
     }
 
     @Override
@@ -51,7 +52,7 @@ public class ServiciiAdapter extends RecyclerView.Adapter<ServiciiAdapter.ViewHo
         holder.numeTextView.setText(service.getNume());
         holder.nrTelefonTextView.setText(String.format("Telefon: %s", service.getNrTelefon()));
         holder.serviciiTextView.setText(String.format("Servicii:\n%s", service.getServiciiString()));
-        holder.callButton.setText("Apeleaza");
+        holder.callButton.setText(R.string.buton_apel);
         holder.callButton.setEnabled(true);
         holder.setMapLocation(new LatLng(service.getLocatie().getLatitude(), service.getLocatie().getLongitude()));
 
@@ -71,24 +72,28 @@ public class ServiciiAdapter extends RecyclerView.Adapter<ServiciiAdapter.ViewHo
         return mServicii.size();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void clear() {
         mServicii.clear();
         notifyDataSetChanged();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void addAllServicii(List<Service> list) {
         mServicii.addAll(list);
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements OnMapReadyCallback {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements OnMapReadyCallback {
 
-        public TextView numeTextView, nrTelefonTextView, serviciiTextView;
-        public Button callButton;
-        public MapView mapView;
+        public final TextView numeTextView;
+        public final TextView nrTelefonTextView;
+        public final TextView serviciiTextView;
+        public final Button callButton;
+        public final MapView mapView;
         private GoogleMap googleMap;
         private LatLng mapLocation;
-        Context context;
+        final Context context;
 
         public ViewHolder(@NonNull View itemView, Context context) {
             super(itemView);

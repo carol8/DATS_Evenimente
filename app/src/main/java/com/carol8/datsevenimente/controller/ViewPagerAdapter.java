@@ -5,12 +5,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.carol8.datsevenimente.model.Eveniment;
-import com.carol8.datsevenimente.model.Service;
 import com.carol8.datsevenimente.view.Evenimente;
 import com.carol8.datsevenimente.view.Servicii;
-
-import java.util.ArrayList;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
     public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {

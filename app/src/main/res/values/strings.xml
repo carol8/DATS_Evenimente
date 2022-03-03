@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Drive Auto Tuning Show</string>
+    <string name="data_inceput">Data inceput: %1$s</string>
+    <string name="data_final">Data final: %1$s</string>
+    <string name="buton_evenimente">Vezi detalii</string>
+    <string name="buton_apel">Apeleaza</string>
 </resources>
