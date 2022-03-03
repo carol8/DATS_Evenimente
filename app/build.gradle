@@ -19,16 +19,21 @@ android {
         applicationId "com.carol8.datsevenimente"
         minSdkVersion 23
         targetSdkVersion 31
-        versionCode 3
-        versionName "1.2"
+        versionCode 5
+        versionName "1.4"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.debug
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            ndk{
+                debugSymbolLevel 'FULL'
+            }
         }
     }
     compileOptions {
