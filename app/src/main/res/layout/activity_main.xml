@@ -15,10 +15,12 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="139dp"
+            android:layout_width="0dp"
             android:layout_height="53dp"
             android:layout_weight="1"
             android:adjustViewBounds="true"
+            android:contentDescription="@string/app_name"
+            android:paddingTop="5dp"
             android:scaleType="centerInside"
             app:srcCompat="@drawable/logo" />
 
@@ -29,6 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabTextAppearance="@style/MineCustomTabText"
+        tools:ignore="SpeakableTextPresentCheck"
         tools:layout_editor_absoluteX="200dp"
         tools:layout_editor_absoluteY="362dp"></com.google.android.material.tabs.TabLayout>
 

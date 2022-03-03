@@ -1,5 +1,6 @@
 package com.carol8.datsevenimente.controller;
 
+import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.carol8.datsevenimente.R;
 import com.carol8.datsevenimente.model.Eveniment;
 
@@ -25,7 +27,8 @@ import java.util.Locale;
 
 public class EvenimenteAdapter extends RecyclerView.Adapter<EvenimenteAdapter.ViewHolder> {
 
-    private final List<Eveniment> mEveniments = new ArrayList<>();
+    private final List<Eveniment> mEvenimente = new ArrayList<>();
+    Context context;
 
     public EvenimenteAdapter() {}
 
@@ -41,12 +44,12 @@ public class EvenimenteAdapter extends RecyclerView.Adapter<EvenimenteAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy  HH:mm", Locale.US);
-        Eveniment eveniment = mEveniments.get(position);
+        Eveniment eveniment = mEvenimente.get(position);
 
         holder.nameTextView.setText(eveniment.getNume());
-        holder.dataInceputTextView.setText("Data inceput: " + dateFormat.format(eveniment.getDataInceput()));
-        holder.dataFinalTextView.setText("Data final: " + dateFormat.format(eveniment.getDataFinal()));
-        holder.buyButton.setText("Vezi detalii");
+        holder.dataInceputTextView.setText(context.getResources().getString(R.string.data_inceput, dateFormat.format(eveniment.getDataInceput())));
+        holder.dataFinalTextView.setText(context.getResources().getString(R.string.data_inceput, dateFormat.format(eveniment.getDataFinal())));
+        holder.buyButton.setText(R.string.buton_evenimente);
         holder.buyButton.setEnabled(true);
         holder.buyButton.setOnClickListener(view -> {
             try {
@@ -57,29 +60,36 @@ public class EvenimenteAdapter extends RecyclerView.Adapter<EvenimenteAdapter.Vi
                 Toast.makeText(holder.buyButton.getContext(), "Detaliile nu exista! Incercati mai tarziu", Toast.LENGTH_SHORT).show();
             }
         });
+        Glide.with(context)
+                .load(eveniment.getStorageReference())
+                .into(holder.imageView);
     }
 
     @Override
     public int getItemCount() {
-        return mEveniments.size();
+        return mEvenimente.size();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void clear() {
-        mEveniments.clear();
+        mEvenimente.clear();
         notifyDataSetChanged();
     }
 
     // Add a list of items -- change to type used
+    @SuppressLint("NotifyDataSetChanged")
     public void addAll(List<Eveniment> list) {
-        mEveniments.addAll(list);
+        mEvenimente.addAll(list);
         notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView nameTextView, dataInceputTextView, dataFinalTextView;
-        public Button buyButton;
-        public ImageView imageView;
+        public final TextView nameTextView;
+        public final TextView dataInceputTextView;
+        public final TextView dataFinalTextView;
+        public final Button buyButton;
+        public final ImageView imageView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -87,6 +97,8 @@ public class EvenimenteAdapter extends RecyclerView.Adapter<EvenimenteAdapter.Vi
             buyButton = itemView.findViewById(R.id.evenimentButon);
             dataInceputTextView = itemView.findViewById(R.id.evenimentDataInceput);
             dataFinalTextView = itemView.findViewById(R.id.evenimentDataFinal);
+            imageView = itemView.findViewById(R.id.evenimentIcon);
+            context = itemView.getContext();
         }
     }
 }
