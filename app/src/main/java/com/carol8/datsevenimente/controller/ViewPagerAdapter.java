@@ -13,12 +13,8 @@ import com.carol8.datsevenimente.view.Servicii;
 import java.util.ArrayList;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
-    private ArrayList<Eveniment> evenimente;
-    private ArrayList<Service> servicii;
-    public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity, ArrayList<Eveniment> evenimente, ArrayList<Service> servicii) {
+    public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
-        this.evenimente = evenimente;
-        this.servicii = servicii;
     }
 
     @NonNull
@@ -26,9 +22,9 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position){
             case 1:
-                return new Servicii(servicii);
+                return new Servicii();
             default:
-                return new Evenimente(evenimente);
+                return new Evenimente();
         }
     }
 

@@ -30,36 +30,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ArrayList<Eveniment> evenimente = new ArrayList<>();
-        ArrayList<Service> servicii = new ArrayList<>();
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.setFirestoreSettings(new FirebaseFirestoreSettings.Builder().setPersistenceEnabled(true).build());
-        db.collection("evenimente").orderBy("dataInceput")
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        for(QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-                            //Log.d(TAG, documentSnapshot.getId() + " => " + documentSnapshot.getData());
-                            evenimente.add(new Eveniment(documentSnapshot.getString("nume"), documentSnapshot.getString("url"), documentSnapshot.getTimestamp("dataInceput").toDate(), documentSnapshot.getTimestamp("dataFinal").toDate()));
-                        }
-                    } else {
-                        //Log.d(TAG, "get failed with ", task.getException());
-                    }
-                });
-        db.collection("service")
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-                            //Log.d(TAG, documentSnapshot.getId() + " => " + documentSnapshot.getData());
-                            servicii.add(new Service(documentSnapshot.getString("nume"), documentSnapshot.getString("nrTelefon"), new ArrayList<>(Arrays.asList(documentSnapshot.getString("servicii").split(";"))), documentSnapshot.getGeoPoint("locatie")));
-                        }
-                    } else {
-                        //Log.d(TAG, "get failed with ", task.getException());
-                    }
-                });
-
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         Objects.requireNonNull(getSupportActionBar()).hide();
         setContentView(R.layout.activity_main);
@@ -67,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         ViewPager2 viewPager2 = findViewById(R.id.view_pager);
 
-        ViewPagerAdapter adapter = new ViewPagerAdapter(this, evenimente, servicii);
+        ViewPagerAdapter adapter = new ViewPagerAdapter(this);
         viewPager2.setAdapter(adapter);
         viewPager2.setOffscreenPageLimit(2);
 

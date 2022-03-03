@@ -15,11 +15,18 @@ import android.view.ViewGroup;
 import com.carol8.datsevenimente.controller.EvenimenteAdapter;
 import com.carol8.datsevenimente.model.Eveniment;
 import com.carol8.datsevenimente.R;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,10 +34,10 @@ import java.util.ArrayList;
 public class Evenimente extends Fragment {
     private EvenimenteAdapter evenimenteAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private ArrayList<Eveniment> evenimente;
+    private ArrayList<Eveniment> evenimente = new ArrayList<>();
 
-    public Evenimente(ArrayList<Eveniment> evenimente){
-        this.evenimente = evenimente;
+    public Evenimente(){
+
     }
 
     @Override
@@ -50,8 +57,7 @@ public class Evenimente extends Fragment {
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
         swipeRefreshLayout = v.findViewById(R.id.swipeContainerEvenimente);
         swipeRefreshLayout.setOnRefreshListener(this::fetchAsync);
-        evenimenteAdapter.clear();
-        evenimenteAdapter.addAll(evenimente);
+        fetchAsync();
         return v;
     }
 

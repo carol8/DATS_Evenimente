@@ -30,12 +30,10 @@ import java.util.HashSet;
 public class Servicii extends Fragment {
     private ServiciiAdapter serviciiAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private ArrayList<String> serviciiSelectate = new ArrayList<>();
-    private ArrayList<Service> servicii;
-    private TextView filtrareTextView;
+    private ArrayList<Service> servicii = new ArrayList<>();
 
-    public Servicii(ArrayList<Service> servicii) {
-        this.servicii = servicii;
+    public Servicii() {
+
     }
 
     @Override
@@ -50,23 +48,16 @@ public class Servicii extends Fragment {
         View v = inflater.inflate(R.layout.service, container, false);
         RecyclerView recyclerView = v.findViewById(R.id.recyclerViewService);
         serviciiAdapter = new ServiciiAdapter();
-
         recyclerView.setAdapter(serviciiAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext()));
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
-
         swipeRefreshLayout = v.findViewById(R.id.swipeContainerService);
         swipeRefreshLayout.setOnRefreshListener(this::fetchAsync);
-
-        serviciiAdapter.clear();
-        serviciiAdapter.addAllServicii(servicii);
-
-        filtrareTextView = v.findViewById(R.id.filtrareTextView);
+        fetchAsync();
         return v;
     }
 
     public void fetchAsync() {
-        HashSet<String> serviciiOferite = new HashSet<>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.setFirestoreSettings(new FirebaseFirestoreSettings.Builder().setPersistenceEnabled(true).build());
         db.collection("service")
