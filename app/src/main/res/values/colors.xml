@@ -10,4 +10,6 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="highlight_10">#19000000</color>
+    <color name="popup">#E6E6E6</color>
 </resources>
