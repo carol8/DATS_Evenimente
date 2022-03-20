@@ -3,12 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/OneDrive - Technical University of Cluj-Napoca/Proiecte/Paco/DATS Evenimente/Android/Paco/DATSEvenimente6/app/src/main/res/drawable-night/pill_button.xml" value="0.2135" />
+        <entry key="..\:/OneDrive - Technical University of Cluj-Napoca/Proiecte/Paco/DATS Evenimente/Android/Paco/DATSEvenimente6/app/src/main/res/drawable-night/pill_text.xml" value="0.2135" />
+        <entry key="..\:/OneDrive - Technical University of Cluj-Napoca/Proiecte/Paco/DATS Evenimente/Android/Paco/DATSEvenimente6/app/src/main/res/drawable-night/pill_up.xml" value="0.2095" />
         <entry key="..\:/OneDrive - Technical University of Cluj-Napoca/Proiecte/Paco/DATS Evenimente/Android/Paco/DATSEvenimente6/app/src/main/res/drawable/bg_gradient.xml" value="0.1" />
+        <entry key="..\:/OneDrive - Technical University of Cluj-Napoca/Proiecte/Paco/DATS Evenimente/Android/Paco/DATSEvenimente6/app/src/main/res/drawable/pill_bg.xml" value="0.277" />
+        <entry key="..\:/OneDrive - Technical University of Cluj-Napoca/Proiecte/Paco/DATS Evenimente/Android/Paco/DATSEvenimente6/app/src/main/res/drawable/pill_button.xml" value="0.2135" />
+        <entry key="..\:/OneDrive - Technical University of Cluj-Napoca/Proiecte/Paco/DATS Evenimente/Android/Paco/DATSEvenimente6/app/src/main/res/drawable/pill_text.xml" value="0.2095" />
+        <entry key="..\:/OneDrive - Technical University of Cluj-Napoca/Proiecte/Paco/DATS Evenimente/Android/Paco/DATSEvenimente6/app/src/main/res/drawable/pill_up.xml" value="0.2095" />
         <entry key="..\:/OneDrive - Technical University of Cluj-Napoca/Proiecte/Paco/DATS Evenimente/Android/Paco/DATSEvenimente6/app/src/main/res/drawable/splash_background.xml" value="0.1175" />
         <entry key="..\:/OneDrive - Technical University of Cluj-Napoca/Proiecte/Paco/DATS Evenimente/Android/Paco/DATSEvenimente6/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
-        <entry key="..\:/OneDrive - Technical University of Cluj-Napoca/Proiecte/Paco/DATS Evenimente/Android/Paco/DATSEvenimente6/app/src/main/res/layout/item_event.xml" value="0.33" />
-        <entry key="..\:/OneDrive - Technical University of Cluj-Napoca/Proiecte/Paco/DATS Evenimente/Android/Paco/DATSEvenimente6/app/src/main/res/layout/item_service.xml" value="0.18" />
-        <entry key="..\:/OneDrive - Technical University of Cluj-Napoca/Proiecte/Paco/DATS Evenimente/Android/Paco/DATSEvenimente6/app/src/main/res/layout/service.xml" value="0.25" />
+        <entry key="..\:/OneDrive - Technical University of Cluj-Napoca/Proiecte/Paco/DATS Evenimente/Android/Paco/DATSEvenimente6/app/src/main/res/layout/item_event.xml" value="1.1" />
+        <entry key="..\:/OneDrive - Technical University of Cluj-Napoca/Proiecte/Paco/DATS Evenimente/Android/Paco/DATSEvenimente6/app/src/main/res/layout/item_service.xml" value="0.33" />
+        <entry key="..\:/OneDrive - Technical University of Cluj-Napoca/Proiecte/Paco/DATS Evenimente/Android/Paco/DATSEvenimente6/app/src/main/res/layout/service.xml" value="0.33" />
+        <entry key="..\:/OneDrive - Technical University of Cluj-Napoca/Proiecte/Paco/DATS Evenimente/Android/Paco/DATSEvenimente6/app/src/main/res/menu/popup_sortare.xml" value="0.18333333333333332" />
       </map>
     </option>
   </component>

@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Button"
+        app:cornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/serviceServicii"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,25 +30,27 @@
 
     <TextView
         android:id="@+id/serviceNrTelefon"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/pill_text"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:text="TextView"
         android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/serviceButon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/serviceNume" />
 
     <TextView
         android:id="@+id/serviceServicii"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/pill_text"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:text="TextView"
         android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/serviceButon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/serviceNrTelefon" />
 

@@ -29,6 +29,8 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ServiciiAdapter extends RecyclerView.Adapter<ServiciiAdapter.ViewHolder>{
@@ -82,6 +84,25 @@ public class ServiciiAdapter extends RecyclerView.Adapter<ServiciiAdapter.ViewHo
     public void addAllServicii(List<Service> list) {
         mServicii.addAll(list);
         notifyDataSetChanged();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void sortareServicii(String tip){
+        switch (tip){
+            case "Alfabetic":
+                Collections.sort(mServicii, (service, t1) -> service.getNume().compareTo(t1.getNume()));
+                notifyDataSetChanged();
+                break;
+            case "Numar servicii descrescator":
+                Collections.sort(mServicii, (service, t1) ->
+                        t1.getServicii().size() - service.getServicii().size() != 0 ?
+                        t1.getServicii().size() - service.getServicii().size() :
+                        service.getNume().compareTo(t1.getNume()));
+                notifyDataSetChanged();
+                break;
+            default:
+                break;
+        }
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements OnMapReadyCallback {
