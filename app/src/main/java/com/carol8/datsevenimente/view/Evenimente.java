@@ -23,17 +23,10 @@ import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.Objects;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class Evenimente extends Fragment {
     private EvenimenteAdapter evenimenteAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private final ListaEvenimente evenimente = new ListaEvenimente();
-
-    public Evenimente(){
-
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,10 +49,6 @@ public class Evenimente extends Fragment {
     }
 
     public void fetchAsync(){
-        fetchAsyncDatabase();
-    }
-
-    public void fetchAsyncDatabase(){
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
         firebaseFirestore.setFirestoreSettings(new FirebaseFirestoreSettings.Builder().setPersistenceEnabled(true).build());

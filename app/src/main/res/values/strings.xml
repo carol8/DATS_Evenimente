@@ -4,4 +4,7 @@
     <string name="data_final">Data final: %1$s</string>
     <string name="buton_evenimente">Vezi detalii</string>
     <string name="buton_apel">Apeleaza</string>
+    <string name="buton_sortare">Sorteaza</string>
+    <string name="hint_filtrare">Cauta service…</string>
+    <string name="imageView_event_descriere">Imagine eveniment</string>
 </resources>

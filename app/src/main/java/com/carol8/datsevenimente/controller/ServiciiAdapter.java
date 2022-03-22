@@ -29,10 +29,13 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public class ServiciiAdapter extends RecyclerView.Adapter<ServiciiAdapter.ViewHolder>{
-    private final ArrayList<Service> mServicii = new ArrayList<>();
+    private final ArrayList<Service> servicii = new ArrayList<>();
+    private final ArrayList<Service> serviciiFiltrate = new ArrayList<>();
 
     public ServiciiAdapter() {}
 
@@ -47,7 +50,7 @@ public class ServiciiAdapter extends RecyclerView.Adapter<ServiciiAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ServiciiAdapter.ViewHolder holder, int position) {
-        Service service = mServicii.get(position);
+        Service service = serviciiFiltrate.get(position);
 
         holder.numeTextView.setText(service.getNume());
         holder.nrTelefonTextView.setText(String.format("Telefon: %s", service.getNrTelefon()));
@@ -69,18 +72,57 @@ public class ServiciiAdapter extends RecyclerView.Adapter<ServiciiAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return mServicii.size();
+        return serviciiFiltrate.size();
     }
 
     @SuppressLint("NotifyDataSetChanged")
     public void clear() {
-        mServicii.clear();
+        servicii.clear();
+        FiltrareServicii("");
         notifyDataSetChanged();
     }
 
     @SuppressLint("NotifyDataSetChanged")
     public void addAllServicii(List<Service> list) {
-        mServicii.addAll(list);
+        servicii.addAll(list);
+        FiltrareServicii("");
+        notifyDataSetChanged();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void sortareServicii(String tip){
+        switch (tip){
+            case "Alfabetic":
+                //noinspection ComparatorCombinators
+                Collections.sort(serviciiFiltrate, (service, t1) -> service.getNume().compareTo(t1.getNume()));
+                notifyDataSetChanged();
+                break;
+            case "Numar servicii descrescator":
+                Collections.sort(serviciiFiltrate, (service, t1) ->
+                        t1.getServicii().size() - service.getServicii().size() != 0 ?
+                        t1.getServicii().size() - service.getServicii().size() :
+                        service.getNume().compareTo(t1.getNume()));
+                notifyDataSetChanged();
+                break;
+            default:
+                break;
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void FiltrareServicii(String filtru){
+        serviciiFiltrate.clear();
+        filtru = filtru.toLowerCase(Locale.ROOT).trim();
+        if(filtru.compareTo("") == 0){
+            serviciiFiltrate.addAll(servicii);
+        }
+        else{
+            for(Service service : servicii){
+                if(service.getServiciiString().toLowerCase(Locale.ROOT).trim().contains(filtru)){
+                    serviciiFiltrate.add(service);
+                }
+            }
+        }
         notifyDataSetChanged();
     }
 

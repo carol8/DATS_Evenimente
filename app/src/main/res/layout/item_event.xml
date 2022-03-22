@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -16,7 +14,8 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/evenimentButon"
+        app:layout_constraintEnd_toEndOf="@+id/evenimentDataInceput"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/evenimentIcon"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,21 +23,26 @@
         android:id="@+id/evenimentButon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
+        android:paddingLeft="8dp"
+        android:paddingTop="2dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="2dp"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/evenimentDataFinal"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/evenimentDataInceput"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/evenimentNume" />
+        app:layout_constraintTop_toTopOf="@+id/evenimentDataInceput" />
 
     <TextView
         android:id="@+id/evenimentDataInceput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/pill_text"
+        android:maxWidth="180dp"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/evenimentButon"
         app:layout_constraintStart_toEndOf="@+id/evenimentIcon"
         app:layout_constraintTop_toBottomOf="@+id/evenimentNume" />
 
@@ -46,19 +50,23 @@
         android:id="@+id/evenimentDataFinal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/pill_text"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/evenimentDataInceput"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/evenimentIcon"
         app:layout_constraintTop_toBottomOf="@+id/evenimentDataInceput" />
 
     <ImageView
         android:id="@+id/evenimentIcon"
-        android:layout_width="100dp"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:adjustViewBounds="true"
+        android:contentDescription="@string/imageView_event_descriere"
         android:cropToPadding="false"
         android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="@+id/evenimentDataFinal"

@@ -5,7 +5,9 @@ import com.google.firebase.storage.StorageReference;
 import java.util.Date;
 
 public class Eveniment {
-    private String nume, url, id;
+    private String nume;
+    private String url;
+    private final String id;
     private Date dataInceput, dataFinal;
     private StorageReference storageReference;
 
@@ -52,10 +54,6 @@ public class Eveniment {
 
     public void setUrl(String url) {
         this.url = url;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public void setDataInceput(Date dataInceput) {

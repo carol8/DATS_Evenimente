@@ -48,7 +48,7 @@ public class EvenimenteAdapter extends RecyclerView.Adapter<EvenimenteAdapter.Vi
 
         holder.nameTextView.setText(eveniment.getNume());
         holder.dataInceputTextView.setText(context.getResources().getString(R.string.data_inceput, dateFormat.format(eveniment.getDataInceput())));
-        holder.dataFinalTextView.setText(context.getResources().getString(R.string.data_inceput, dateFormat.format(eveniment.getDataFinal())));
+        holder.dataFinalTextView.setText(context.getResources().getString(R.string.data_final, dateFormat.format(eveniment.getDataFinal())));
         holder.buyButton.setText(R.string.buton_evenimente);
         holder.buyButton.setEnabled(true);
         holder.buyButton.setOnClickListener(view -> {

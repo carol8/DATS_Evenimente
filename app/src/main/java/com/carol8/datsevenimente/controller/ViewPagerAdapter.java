@@ -16,6 +16,7 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
+        //noinspection SwitchStatementWithTooFewBranches
         switch (position){
             case 1:
                 return new Servicii();
