@@ -16,10 +16,21 @@
         <!-- if using android.support.v7.widget.PopupMenu -->
         <item name="popupMenuStyle">@style/PopupMenu</item>
     </style>
+
     <style name="MineCustomTabText" parent="TextAppearance.AppCompat.Large">
         <item name="android:textSize">24sp</item>
     </style>
+
     <style name="PopupMenu" parent="ThemeOverlay.AppCompat.DayNight">
-        <item name = "android:popupBackground">@color/popup</item>
+        <item name="android:popupBackground">@color/popup</item>
     </style>
+
+    <style name="Theme.DATSEvenimente.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.DATSEvenimente.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.DATSEvenimente.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

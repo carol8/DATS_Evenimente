@@ -1,6 +1,8 @@
 package com.carol8.datsevenimente.view;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -9,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.PopupMenu;
 
 import androidx.fragment.app.Fragment;
@@ -63,7 +66,23 @@ public class Servicii extends Fragment {
             });
             popupMenu.show();
         });
-//        Button butonFiltrare = v.findViewById(R.id.butonFiltrare);
+        EditText editTextFiltrare = v.findViewById(R.id.editTextFiltrare);
+        editTextFiltrare.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                serviciiAdapter.FiltrareServicii(editable.toString());
+            }
+        });
 
         swipeRefreshLayout = v.findViewById(R.id.swipeContainerService);
         swipeRefreshLayout.setOnRefreshListener(this::fetchAsync);

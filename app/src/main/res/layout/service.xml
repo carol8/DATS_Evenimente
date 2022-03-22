@@ -6,41 +6,51 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="5dp"
-        android:paddingBottom="10dp">
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/editTextFiltrare"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:autofillHints="auto"
+            android:background="@drawable/pill_search"
+            android:ems="10"
+            android:hint="@string/hint_filtrare"
+            android:imeOptions="actionDone"
+            android:inputType="textPersonName"
+            android:minHeight="36dip"
+            android:paddingLeft="8dp"
+            android:paddingTop="2dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="2dp"
+            android:textColorHint="#616161"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/butonSortare"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <Button
             android:id="@+id/butonSortare"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
+            android:layout_marginEnd="4dp"
             android:paddingLeft="8dp"
-            android:paddingTop="2dp"
+            android:paddingTop="0dp"
             android:paddingRight="8dp"
-            android:paddingBottom="2dp"
+            android:paddingBottom="0dp"
             android:text="@string/buton_sortare"
-            app:cornerRadius="600dp" />
+            app:cornerRadius="600dp"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextFiltrare"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/editTextFiltrare"
+            tools:ignore="TextContrastCheck" />
 
-        <Button
-            android:id="@+id/butonFiltrare"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:paddingLeft="8dp"
-            android:paddingTop="2dp"
-            android:paddingRight="8dp"
-            android:paddingBottom="2dp"
-            android:text="@string/buton_filtrare"
-            app:cornerRadius="600dp" />
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeContainerService"
