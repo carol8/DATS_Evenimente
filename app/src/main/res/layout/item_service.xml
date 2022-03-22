@@ -19,7 +19,8 @@
         app:cornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/serviceServicii"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/serviceNume"
@@ -31,7 +32,8 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/serviceButon"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/serviceNrTelefon"
@@ -44,7 +46,8 @@
         android:text="TextView"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/serviceNume" />
+        app:layout_constraintTop_toBottomOf="@+id/serviceNume"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/serviceServicii"
@@ -57,7 +60,8 @@
         android:text="TextView"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/serviceNrTelefon" />
+        app:layout_constraintTop_toBottomOf="@+id/serviceNrTelefon"
+        tools:ignore="HardcodedText" />
 
     <com.google.android.gms.maps.MapView
         android:id="@+id/serviceMapView"

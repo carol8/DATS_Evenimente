@@ -28,10 +28,6 @@ public class Evenimente extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private final ListaEvenimente evenimente = new ListaEvenimente();
 
-    public Evenimente(){
-
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

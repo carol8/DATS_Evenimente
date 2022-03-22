@@ -1,7 +1,5 @@
 package com.carol8.datsevenimente.model;
 
-import android.util.Pair;
-
 import com.google.firebase.firestore.GeoPoint;
 
 import java.util.ArrayList;
@@ -40,10 +38,6 @@ public class Service {
 
     public GeoPoint getLocatie() {
         return locatie;
-    }
-
-    public ArrayList<Tehnician> getTehnicieni() {
-        return tehnicieni;
     }
 
     public ArrayList<String> getServicii() {
