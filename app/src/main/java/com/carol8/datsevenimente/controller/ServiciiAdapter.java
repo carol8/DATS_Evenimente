@@ -93,6 +93,7 @@ public class ServiciiAdapter extends RecyclerView.Adapter<ServiciiAdapter.ViewHo
     public void sortareServicii(String tip){
         switch (tip){
             case "Alfabetic":
+                //noinspection ComparatorCombinators
                 Collections.sort(serviciiFiltrate, (service, t1) -> service.getNume().compareTo(t1.getNume()));
                 notifyDataSetChanged();
                 break;

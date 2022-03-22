@@ -3,11 +3,8 @@ package com.carol8.datsevenimente.view;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Pair;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -29,17 +26,12 @@ import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 
 public class Servicii extends Fragment {
     private ServiciiAdapter serviciiAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private final ArrayList<Service> servicii = new ArrayList<>();
-
-    public Servicii() {
-
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

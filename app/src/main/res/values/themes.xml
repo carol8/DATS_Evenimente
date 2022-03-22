@@ -25,12 +25,4 @@
         <item name="android:popupBackground">@color/popup</item>
     </style>
 
-    <style name="Theme.DATSEvenimente.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="Theme.DATSEvenimente.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.DATSEvenimente.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
