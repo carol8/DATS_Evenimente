@@ -5,6 +5,8 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +30,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -35,7 +38,6 @@ import java.util.Locale;
 
 public class ServiciiAdapter extends RecyclerView.Adapter<ServiciiAdapter.ViewHolder>{
     private final ArrayList<Service> servicii = new ArrayList<>();
-    private final ArrayList<Service> serviciiFiltrate = new ArrayList<>();
 
     public ServiciiAdapter() {}
 
@@ -50,14 +52,22 @@ public class ServiciiAdapter extends RecyclerView.Adapter<ServiciiAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ServiciiAdapter.ViewHolder holder, int position) {
-        Service service = serviciiFiltrate.get(position);
+        Service service = servicii.get(position);
 
         holder.numeTextView.setText(service.getNume());
         holder.nrTelefonTextView.setText(String.format("Telefon: %s", service.getNrTelefon()));
         holder.serviciiTextView.setText(String.format("Servicii:\n%s", service.getServiciiString()));
+        try {
+            Geocoder geocoder = new Geocoder(holder.context.getApplicationContext(), new Locale("ro", "RO"));
+            List<Address> addresses = geocoder.getFromLocation(service.getLocatie().latitude, service.getLocatie().longitude, 1);
+            holder.locatieTextView.setText(String.format("Locatie: %s", addresses.get(0).getAddressLine(0)));
+        } catch (IOException e) {
+            holder.locatieTextView.setText(R.string.serviciiDefaultLocatieText);
+            e.printStackTrace();
+        }
         holder.callButton.setText(R.string.buton_apel);
         holder.callButton.setEnabled(true);
-        holder.setMapLocation(new LatLng(service.getLocatie().getLatitude(), service.getLocatie().getLongitude()));
+        holder.setMapLocation(service.getLocatie());
 
         holder.callButton.setOnClickListener(view -> {
             try {
@@ -72,20 +82,13 @@ public class ServiciiAdapter extends RecyclerView.Adapter<ServiciiAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return serviciiFiltrate.size();
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    public void clear() {
-        servicii.clear();
-        FiltrareServicii("");
-        notifyDataSetChanged();
+        return servicii.size();
     }
 
     @SuppressLint("NotifyDataSetChanged")
     public void addAllServicii(List<Service> list) {
+        servicii.clear();
         servicii.addAll(list);
-        FiltrareServicii("");
         notifyDataSetChanged();
     }
 
@@ -94,11 +97,11 @@ public class ServiciiAdapter extends RecyclerView.Adapter<ServiciiAdapter.ViewHo
         switch (tip){
             case "Alfabetic":
                 //noinspection ComparatorCombinators
-                Collections.sort(serviciiFiltrate, (service, t1) -> service.getNume().compareTo(t1.getNume()));
+                Collections.sort(servicii, (service, t1) -> service.getNume().compareTo(t1.getNume()));
                 notifyDataSetChanged();
                 break;
             case "Numar servicii descrescator":
-                Collections.sort(serviciiFiltrate, (service, t1) ->
+                Collections.sort(servicii, (service, t1) ->
                         t1.getServicii().size() - service.getServicii().size() != 0 ?
                         t1.getServicii().size() - service.getServicii().size() :
                         service.getNume().compareTo(t1.getNume()));
@@ -109,28 +112,12 @@ public class ServiciiAdapter extends RecyclerView.Adapter<ServiciiAdapter.ViewHo
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    public void FiltrareServicii(String filtru){
-        serviciiFiltrate.clear();
-        filtru = filtru.toLowerCase(Locale.ROOT).trim();
-        if(filtru.compareTo("") == 0){
-            serviciiFiltrate.addAll(servicii);
-        }
-        else{
-            for(Service service : servicii){
-                if(service.getServiciiString().toLowerCase(Locale.ROOT).trim().contains(filtru)){
-                    serviciiFiltrate.add(service);
-                }
-            }
-        }
-        notifyDataSetChanged();
-    }
-
     public static class ViewHolder extends RecyclerView.ViewHolder implements OnMapReadyCallback {
 
         public final TextView numeTextView;
         public final TextView nrTelefonTextView;
         public final TextView serviciiTextView;
+        public final TextView locatieTextView;
         public final Button callButton;
         public final MapView mapView;
         private GoogleMap googleMap;
@@ -142,6 +129,7 @@ public class ServiciiAdapter extends RecyclerView.Adapter<ServiciiAdapter.ViewHo
             numeTextView = itemView.findViewById(R.id.serviceNume);
             nrTelefonTextView = itemView.findViewById(R.id.serviceNrTelefon);
             serviciiTextView = itemView.findViewById(R.id.serviceServicii);
+            locatieTextView = itemView.findViewById(R.id.serviceLocatie);
             callButton = itemView.findViewById(R.id.serviceButon);
             mapView = itemView.findViewById(R.id.serviceMapView);
 

@@ -1,6 +1,8 @@
 package com.carol8.datsevenimente.model;
 
-public class Tehnician implements Comparable<Tehnician>{
+import java.io.Serializable;
+
+public class Tehnician implements Comparable<Tehnician>, Serializable {
     private final String nume;
     private final String pozitie;
     // --Commented out by Inspection (22-Mar-22 03:33):private final HashMap<ArrayList<String>, Integer> recenzii = new HashMap<>();

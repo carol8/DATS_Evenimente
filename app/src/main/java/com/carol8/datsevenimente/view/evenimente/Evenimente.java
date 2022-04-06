@@ -1,4 +1,4 @@
-package com.carol8.datsevenimente.view;
+package com.carol8.datsevenimente.view.evenimente;
 
 import android.os.Bundle;
 

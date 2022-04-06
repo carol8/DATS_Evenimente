@@ -4,7 +4,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.Date;
 
-public class Eveniment {
+public class Eveniment implements Comparable<Eveniment> {
     private String nume;
     private String url;
     private final String id;
@@ -62,6 +62,11 @@ public class Eveniment {
 
     public void setDataFinal(Date dataFinal) {
         this.dataFinal = dataFinal;
+    }
+
+    @Override
+    public int compareTo(Eveniment eveniment) {
+        return this.dataInceput.compareTo(eveniment.dataInceput);
     }
 }
 

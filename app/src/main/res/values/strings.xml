@@ -5,6 +5,34 @@
     <string name="buton_evenimente">Vezi detalii</string>
     <string name="buton_apel">Apeleaza</string>
     <string name="buton_sortare">Sorteaza</string>
-    <string name="hint_filtrare">Cauta service…</string>
+    <string name="buton_filtrare">Filtreaza</string>
     <string name="imageView_event_descriere">Imagine eveniment</string>
+
+    <string name="filtrareActivityTitle">Filtreaza</string>
+    <string name="filtrareLabelText">Filtre disponibile:</string>
+    <string name="filtrareLocatieButton">Locatie</string>
+    <string name="filtrareNumeButton">Nume service</string>
+    <string name="filtrareServiciiButton">Servicii</string>
+    <string name="filtrareTerminataButton">Filtreaza</string>
+    <string name="filtrareStergereButton">Sterge filtrele</string>
+    <string name="filtrareStergereExplanation">Vrei sa stergi toate filtrele?</string>
+    <string name="filtrareStergereYes">Sterge</string>
+    <string name="filtrareStergereNo">Anuleaza</string>
+
+    <string name="locatieActivityTitle">Filtreaza locatia</string>
+    <string name="locatieLabelLocatie">Locatie</string>
+    <string name="locatieLabelDistantaMaxima">Distanta maxima</string>
+    <string name="locatieLabelDistanta">Oriunde</string>
+    <string name="locatieHartaSpeakableText">Harta prin care selectam unde si pe ce raza sa cautam un service potrivit</string>
+    <string name="locationDialogExplanation">Pentru a putea oferi filtrarea dupa locatie, avem nevoie de acces la locatia dumneavoastra</string>
+    <string name="locationDialogYesButton">OK</string>
+    <string name="locationDialogNoButton">Anuleaza</string>
+
+    <string name="numeActivityTitle">Filtreaza dupa nume</string>
+
+    <string name="serviciiActivityTitle">Filtreaza dupa servicii</string>
+    <string name="itemServiceHarta">Harta care afiseaza unde este service-ul</string>
+    <string name="itemServiceButon">Butonul cu care apelam service-ul</string>
+    <string name="serviciiDefaultLocatieText">Locatie: nu am reusit sa obtinem date despre locatie</string>
+
 </resources>
