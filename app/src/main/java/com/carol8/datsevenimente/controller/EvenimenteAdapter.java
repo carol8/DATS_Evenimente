@@ -22,6 +22,7 @@ import com.carol8.datsevenimente.model.Eveniment;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -30,12 +31,10 @@ public class EvenimenteAdapter extends RecyclerView.Adapter<EvenimenteAdapter.Vi
     private final List<Eveniment> mEvenimente = new ArrayList<>();
     Context context;
 
-    public EvenimenteAdapter() {}
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
+        context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View eventView = inflater.inflate(R.layout.item_event, parent, false);
         return new ViewHolder(eventView);
@@ -43,7 +42,7 @@ public class EvenimenteAdapter extends RecyclerView.Adapter<EvenimenteAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy  HH:mm", Locale.US);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", new Locale("ro", "RO"));
         Eveniment eveniment = mEvenimente.get(position);
 
         holder.nameTextView.setText(eveniment.getNume());
@@ -80,6 +79,7 @@ public class EvenimenteAdapter extends RecyclerView.Adapter<EvenimenteAdapter.Vi
     @SuppressLint("NotifyDataSetChanged")
     public void addAll(List<Eveniment> list) {
         mEvenimente.addAll(list);
+        Collections.sort(mEvenimente);
         notifyDataSetChanged();
     }
 
@@ -98,7 +98,6 @@ public class EvenimenteAdapter extends RecyclerView.Adapter<EvenimenteAdapter.Vi
             dataInceputTextView = itemView.findViewById(R.id.evenimentDataInceput);
             dataFinalTextView = itemView.findViewById(R.id.evenimentDataFinal);
             imageView = itemView.findViewById(R.id.evenimentIcon);
-            context = itemView.getContext();
         }
     }
 }

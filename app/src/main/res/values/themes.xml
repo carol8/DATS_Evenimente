@@ -17,10 +17,6 @@
         <item name="popupMenuStyle">@style/PopupMenu</item>
     </style>
 
-    <style name="MineCustomTabText" parent="TextAppearance.AppCompat.Large">
-        <item name="android:textSize">24sp</item>
-    </style>
-
     <style name="PopupMenu" parent="ThemeOverlay.AppCompat.DayNight">
         <item name="android:popupBackground">@color/popup</item>
     </style>

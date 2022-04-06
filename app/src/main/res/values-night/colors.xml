@@ -2,4 +2,6 @@
 <resources>
     <color name="highlight_10">#19FFFFFF</color>
     <color name="popup">#292929</color>
+    <color name="filter_text_background">@color/red_200</color>
+    <color name="filter_text">#000000</color>
 </resources>

@@ -1,31 +1,31 @@
 package com.carol8.datsevenimente.model;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.firestore.GeoPoint;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Service {
+import com.google.android.gms.maps.model.LatLng;
+
+public class Service implements Serializable {
     private final String nume, nrTelefon;
     private final ArrayList<Tehnician> tehnicieni;
     private final ArrayList<String> servicii;
-    private final GeoPoint locatie;
+    private final double lat, lng;
 
-    public Service(String nume, String nrTelefon, ArrayList<Tehnician> tehnicieni, GeoPoint locatie) {
+    public Service(String nume, String nrTelefon, ArrayList<Tehnician> tehnicieni, ArrayList<String> servicii, GeoPoint locatie) {
         this.nume = nume;
         this.nrTelefon = nrTelefon;
         this.tehnicieni = tehnicieni;
-        this.locatie = locatie;
+        this.lat = locatie.getLatitude();
+        this.lng = locatie.getLongitude();
         Collections.sort(tehnicieni);
 
-        servicii = new ArrayList<>();
-        String serviciu = "";
-        for(Tehnician tehnician : tehnicieni){
-            if(serviciu.compareTo(tehnician.getPozitie()) != 0){
-                serviciu = tehnician.getPozitie();
-                servicii.add(serviciu);
-            }
-        }
+        this.servicii = servicii;
+        Collections.sort(servicii);
     }
 
     public String getNume() {
@@ -36,8 +36,8 @@ public class Service {
         return nrTelefon;
     }
 
-    public GeoPoint getLocatie() {
-        return locatie;
+    public LatLng getLocatie() {
+        return new LatLng(lat, lng);
     }
 
     public ArrayList<String> getServicii() {
@@ -46,17 +46,37 @@ public class Service {
 
     public String getServiciiString(){
         StringBuilder stringBuilder = new StringBuilder();
-        String serviciu = tehnicieni.get(0).getPozitie();
-        stringBuilder.append(serviciu).append(": ").append(tehnicieni.get(0).getNume());
-        for(Tehnician tehnician : tehnicieni.subList(1, tehnicieni.size())){
-            if(serviciu.compareTo(tehnician.getPozitie()) != 0){
-                serviciu = tehnician.getPozitie();
-                stringBuilder.append("\n").append(serviciu).append(": ").append(tehnician.getNume());
+        if(tehnicieni.size() != 0) {
+            String serviciu = tehnicieni.get(0).getPozitie();
+            stringBuilder.append(serviciu).append(": ").append(tehnicieni.get(0).getNume());
+            for (Tehnician tehnician : tehnicieni.subList(1, tehnicieni.size())) {
+                if (serviciu.compareTo(tehnician.getPozitie()) != 0) {
+                    serviciu = tehnician.getPozitie();
+                    stringBuilder.append("\n").append(serviciu).append(": ").append(tehnician.getNume());
+                } else {
+                    stringBuilder.append(",").append(tehnician.getNume());
+                }
             }
-            else {
-                stringBuilder.append(",").append(tehnician.getNume());
+        }
+        else{
+            stringBuilder.append(servicii.get(0));
+            for(String string : servicii.subList(1, servicii.size())){
+                stringBuilder.append('\n').append(string);
             }
         }
         return stringBuilder.toString();
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "Service{" +
+                "nume='" + nume + '\'' +
+                ", nrTelefon='" + nrTelefon + '\'' +
+                ", tehnicieni=" + tehnicieni +
+                ", servicii=" + servicii +
+                ", lat=" + lat +
+                ", lng=" + lng +
+                '}';
     }
 }

@@ -7,4 +7,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="highlight_10">#19000000</color>
     <color name="popup">#E6E6E6</color>
+    <color name="filter_text_background">@color/red_500</color>
+    <color name="filter_text">#FFFFFF</color>
 </resources>

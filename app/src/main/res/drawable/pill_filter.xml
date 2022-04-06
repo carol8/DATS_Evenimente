@@ -3,12 +3,11 @@
     android:dither="true"
     android:shape="rectangle">
 
-    <corners android:radius="100dp" />
+    <corners android:radius="15dp" />
 
-    <solid android:color="@color/highlight_10" />
+    <solid android:color="@color/filter_text_background" />
 
     <size
         android:width="1dp"
         android:height="1dp" />
-
 </shape>

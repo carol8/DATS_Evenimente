@@ -1,16 +1,22 @@
-package com.carol8.datsevenimente.view;
+package com.carol8.datsevenimente.view.servicii;
 
+import static android.app.Activity.RESULT_OK;
+import static android.content.ContentValues.TAG;
+
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.PopupMenu;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,19 +25,23 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.carol8.datsevenimente.R;
 import com.carol8.datsevenimente.controller.ServiciiAdapter;
+import com.carol8.datsevenimente.model.Filtru;
 import com.carol8.datsevenimente.model.Service;
 import com.carol8.datsevenimente.model.Tehnician;
+import com.carol8.datsevenimente.view.servicii.filtrare.FiltrareServicii;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Objects;
 
 public class Servicii extends Fragment {
     private ServiciiAdapter serviciiAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private final ArrayList<Service> servicii = new ArrayList<>();
+    private Filtru filtru = new Filtru();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,22 +68,14 @@ public class Servicii extends Fragment {
             });
             popupMenu.show();
         });
-        EditText editTextFiltrare = v.findViewById(R.id.editTextFiltrare);
-        editTextFiltrare.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                serviciiAdapter.FiltrareServicii(editable.toString());
-            }
+        Button butonFiltrare = v.findViewById(R.id.butonFiltrare);
+        butonFiltrare.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext(), FiltrareServicii.class);
+            intent.putExtra("servicii", servicii);
+            intent.putExtra("filtru", filtru);
+            Log.wtf(TAG, filtru.toString());
+            activityResultLauncher.launch(intent);
         });
 
         swipeRefreshLayout = v.findViewById(R.id.swipeContainerService);
@@ -82,7 +84,23 @@ public class Servicii extends Fragment {
         return v;
     }
 
+    final ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if(result.getResultCode() == RESULT_OK){
+                        filtru = (Filtru) Objects.requireNonNull(result.getData()).getExtras().get("filtru");
+                        ArrayList<Service> serviciiFiltrate = (ArrayList<Service>) result.getData().getExtras().get("servicii");
+                        serviciiAdapter.addAllServicii(serviciiFiltrate);
+                    }
+                }
+            }
+    );
+
+    @SuppressWarnings("ComparatorCombinators")
     public void fetchAsync() {
+        servicii.clear();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.setFirestoreSettings(new FirebaseFirestoreSettings.Builder().setPersistenceEnabled(true).build());
         db.collection("service")
@@ -91,19 +109,29 @@ public class Servicii extends Fragment {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
                             ArrayList<Tehnician> s = new ArrayList<>();
+                            ArrayList<String> srv = new ArrayList<>();
                             for(String str : Objects.requireNonNull(documentSnapshot.getString("servicii")).split(";")){
-                                String oameni = str.split(":")[1];
-                                for(String str2: oameni.split(",")){
-                                    s.add(new Tehnician(str2, str.split(":")[0]));
+                                if(str.contains(":")) {
+                                    srv.add(str.split(":")[0]);
+                                    String oameni = str.split(":")[1];
+                                    for (String str2 : oameni.split(",")) {
+                                        s.add(new Tehnician(str2, str.split(":")[0]));
+                                    }
+                                }
+                                else{
+                                    srv.add(str);
                                 }
                             }
 
                             servicii.add(new Service(documentSnapshot.getString("nume"),
                                     documentSnapshot.getString("nrTelefon"),
                                     s,
-                                    documentSnapshot.getGeoPoint("locatie")));
+                                    srv,
+                                    Objects.requireNonNull(documentSnapshot.getGeoPoint("locatie"))));
                         }
-                        serviciiAdapter.clear();
+                        filtru = new Filtru();
+                        //noinspection ComparatorCombinators
+                        Collections.sort(servicii, (service, t1) -> service.getNume().compareTo(t1.getNume()));
                         serviciiAdapter.addAllServicii(servicii);
                         swipeRefreshLayout.setRefreshing(false);
                     }
