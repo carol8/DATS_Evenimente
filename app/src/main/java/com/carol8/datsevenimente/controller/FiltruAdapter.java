@@ -66,7 +66,7 @@ public class FiltruAdapter extends RecyclerView.Adapter<FiltruAdapter.ViewHolder
         return filtreSelectate;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder{
         public final CheckBox numeCheckbox;
         public final TextView labelCheckbox;
         public ViewHolder(@NonNull View itemView) {

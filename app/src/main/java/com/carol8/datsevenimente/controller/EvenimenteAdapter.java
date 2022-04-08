@@ -83,7 +83,7 @@ public class EvenimenteAdapter extends RecyclerView.Adapter<EvenimenteAdapter.Vi
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         public final TextView nameTextView;
         public final TextView dataInceputTextView;

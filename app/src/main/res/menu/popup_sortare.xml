@@ -4,6 +4,8 @@
 
     <item android:title="Alfabetic"
         tools:ignore="HardcodedText" />
+    <item android:title="Distanta"
+        tools:ignore="HardcodedText" />
     <item android:title="Numar servicii descrescator"
         tools:ignore="HardcodedText" />
 </menu>

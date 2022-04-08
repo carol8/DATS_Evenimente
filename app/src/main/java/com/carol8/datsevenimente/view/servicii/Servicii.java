@@ -3,7 +3,10 @@ package com.carol8.datsevenimente.view.servicii;
 import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
 
+import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -12,11 +15,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -59,11 +64,38 @@ public class Servicii extends Fragment {
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
 
         Button butonSortare = v.findViewById(R.id.butonSortare);
+
+        ActivityResultLauncher<String[]> locationPermissionRequest =
+                registerForActivityResult(
+                        new ActivityResultContracts.RequestMultiplePermissions(),
+                        result -> {
+                            //noinspection ConstantConditions
+                            if(result.get(Manifest.permission.ACCESS_COARSE_LOCATION) && result.get(Manifest.permission.ACCESS_FINE_LOCATION)){
+                                serviciiAdapter.sortareServicii("Distanta");
+                            }
+                            else{
+                                Toast.makeText(this.getContext(), R.string.servicii_toastLocatie, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
         butonSortare.setOnClickListener(view -> {
             PopupMenu popupMenu = new PopupMenu(butonSortare.getContext(), butonSortare, Gravity.BOTTOM);
             popupMenu.getMenuInflater().inflate(R.menu.popup_sortare, popupMenu.getMenu());
             popupMenu.setOnMenuItemClickListener(menuItem -> {
-                serviciiAdapter.sortareServicii(menuItem.getTitle().toString());
+                if(menuItem.getTitle().toString().equals("Distanta")){
+                    if (ActivityCompat.checkSelfPermission(view.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(view.getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                        builder.setMessage(view.getContext().getString(R.string.locationDialogExplanation, "sortarea"))
+                                .setPositiveButton(R.string.locationDialogYesButton, (dialogInterface, i) -> locationPermissionRequest.launch(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}))
+                                .setNegativeButton(R.string.locationDialogNoButton, (dialogInterface, i) -> Toast.makeText(view.getContext(), R.string.servicii_toastLocatie, Toast.LENGTH_SHORT).show())
+                                .show();
+                    } else {
+                        serviciiAdapter.sortareServicii(menuItem.getTitle().toString());
+                    }
+                }
+                else {
+                    serviciiAdapter.sortareServicii(menuItem.getTitle().toString());
+                }
                 return true;
             });
             popupMenu.show();
