@@ -1,9 +1,11 @@
 package com.carol8.datsevenimente.controller;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.location.Address;
 import android.location.Geocoder;
@@ -16,10 +18,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.carol8.datsevenimente.R;
 import com.carol8.datsevenimente.model.Service;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -38,16 +43,16 @@ import java.util.Locale;
 
 public class ServiciiAdapter extends RecyclerView.Adapter<ServiciiAdapter.ViewHolder>{
     private final ArrayList<Service> servicii = new ArrayList<>();
-
+    private Context context;
     public ServiciiAdapter() {}
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Context c = parent.getContext();
-        LayoutInflater inflater = LayoutInflater.from(c);
+        context = parent.getContext();
+        LayoutInflater inflater = LayoutInflater.from(context);
         View eventView = inflater.inflate(R.layout.item_service, parent, false);
-        return new ViewHolder(eventView, c);
+        return new ViewHolder(eventView, context);
     }
 
     @Override
@@ -100,6 +105,25 @@ public class ServiciiAdapter extends RecyclerView.Adapter<ServiciiAdapter.ViewHo
                 Collections.sort(servicii, (service, t1) -> service.getNume().compareTo(t1.getNume()));
                 notifyDataSetChanged();
                 break;
+            case "Distanta":
+                FusedLocationProviderClient fusedLocation = LocationServices.getFusedLocationProviderClient(context);
+                if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                        ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    fusedLocation.getLastLocation().addOnSuccessListener(location -> {
+                        if (location != null) {
+                            Collections.sort(servicii, ((service, t1) ->
+                                    Math.round(service.getLocation().distanceTo(location) -
+                                            t1.getLocation().distanceTo(location))));
+                            notifyDataSetChanged();
+                        }
+                        else{
+                            Toast.makeText(context, R.string.serviciiAdapter_toastLocatie, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    Toast.makeText(context, R.string.servicii_toastLocatie, Toast.LENGTH_SHORT).show();
+                }
+                break;
             case "Numar servicii descrescator":
                 Collections.sort(servicii, (service, t1) ->
                         t1.getServicii().size() - service.getServicii().size() != 0 ?
@@ -120,9 +144,9 @@ public class ServiciiAdapter extends RecyclerView.Adapter<ServiciiAdapter.ViewHo
         public final TextView locatieTextView;
         public final Button callButton;
         public final MapView mapView;
+        public final Context context;
         private GoogleMap googleMap;
         private LatLng mapLocation;
-        final Context context;
 
         public ViewHolder(@NonNull View itemView, Context context) {
             super(itemView);

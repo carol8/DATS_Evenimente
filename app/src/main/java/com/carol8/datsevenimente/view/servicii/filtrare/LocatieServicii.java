@@ -11,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -67,7 +68,7 @@ public class LocatieServicii extends AppCompatActivity implements OnMapReadyCall
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage(R.string.locationDialogExplanation)
+            builder.setMessage(this.getString(R.string.locationDialogExplanation, "filtrarea"))
                     .setPositiveButton(R.string.locationDialogYesButton, (dialogInterface, i) -> locationPermissionRequest.launch(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}))
                     .setNegativeButton(R.string.locationDialogNoButton, (dialogInterface, i) -> initialiseMap())
                     .show();
@@ -170,6 +171,7 @@ public class LocatieServicii extends AppCompatActivity implements OnMapReadyCall
                         mapZoom = 13;
                     }
                     else{
+                        Toast.makeText(this, R.string.serviciiAdapter_toastLocatie, Toast.LENGTH_SHORT).show();
                         mapLocation = new LatLng(0, 0);
                         mapZoom = 1;
                     }

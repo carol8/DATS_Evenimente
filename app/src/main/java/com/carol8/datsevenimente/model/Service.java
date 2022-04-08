@@ -1,5 +1,7 @@
 package com.carol8.datsevenimente.model;
 
+import android.location.Location;
+
 import androidx.annotation.NonNull;
 
 import com.google.firebase.firestore.GeoPoint;
@@ -38,6 +40,13 @@ public class Service implements Serializable {
 
     public LatLng getLocatie() {
         return new LatLng(lat, lng);
+    }
+
+    public Location getLocation(){
+        Location location = new Location("");
+        location.setLatitude(lat);
+        location.setLongitude(lng);
+        return location;
     }
 
     public ArrayList<String> getServicii() {
