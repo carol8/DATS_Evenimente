@@ -1,4 +1,4 @@
-# DATS_Evenimente
+# DATS Evenimente
 DATS Evenimente is an event display app for the DATS (Drive Auto Tuning Show) related events. This includes all DATS events and many other car tuning showcases.
 
 ---
