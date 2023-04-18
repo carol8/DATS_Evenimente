@@ -42,7 +42,7 @@ public class EvenimenteAdapter extends RecyclerView.Adapter<EvenimenteAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", new Locale("ro", "RO"));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy' ora 'HH:mm", new Locale("ro", "RO"));
         Eveniment eveniment = mEvenimente.get(position);
 
         holder.nameTextView.setText(eveniment.getNume());

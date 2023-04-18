@@ -4,6 +4,7 @@ import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -31,6 +32,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.carol8.datsevenimente.R;
 import com.carol8.datsevenimente.controller.ServiciiAdapter;
 import com.carol8.datsevenimente.model.Filtru;
+import com.carol8.datsevenimente.model.Recenzie;
 import com.carol8.datsevenimente.model.Service;
 import com.carol8.datsevenimente.model.Tehnician;
 import com.carol8.datsevenimente.view.servicii.filtrare.FiltrareServicii;
@@ -38,8 +40,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 public class Servicii extends Fragment {
@@ -130,6 +136,7 @@ public class Servicii extends Fragment {
             }
     );
 
+    @SuppressLint("SimpleDateFormat")
     @SuppressWarnings("ComparatorCombinators")
     public void fetchAsync() {
         servicii.clear();
@@ -154,12 +161,28 @@ public class Servicii extends Fragment {
                                     srv.add(str);
                                 }
                             }
+                            List<String> recenziiText = Arrays.asList(Objects.requireNonNull(documentSnapshot.getString("recenziiText")).split(";"));
+                            List<String> recenziiDate = Arrays.asList(Objects.requireNonNull(documentSnapshot.getString("recenziiDate")).split(";"));
+                            List<String> recenziiUser = Arrays.asList(Objects.requireNonNull(documentSnapshot.getString("recenziiUser")).split(";"));
+                            List<Recenzie> recenzii = new ArrayList<>();
+                            for(int i = 0; i < recenziiText.size(); i++){
+                                try {
+                                    recenzii.add(new Recenzie(recenziiText.get(i), recenziiUser.get(i), new SimpleDateFormat("dd.MM.yyyy").parse(recenziiDate.get(i))));
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                            }
 
-                            servicii.add(new Service(documentSnapshot.getString("nume"),
-                                    documentSnapshot.getString("nrTelefon"),
-                                    s,
-                                    srv,
-                                    Objects.requireNonNull(documentSnapshot.getGeoPoint("locatie"))));
+                            servicii.add(
+                                    new Service(documentSnapshot.getString("nume"),
+                                        documentSnapshot.getString("nrTelefon"),
+                                        s,
+                                        srv,
+                                        Objects.requireNonNull(documentSnapshot.getGeoPoint("locatie")),
+                                        recenzii,
+                                        documentSnapshot.getId()
+                                    )
+                            );
                         }
                         filtru = new Filtru();
                         //noinspection ComparatorCombinators

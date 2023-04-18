@@ -4,30 +4,35 @@ import android.location.Location;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.firestore.GeoPoint;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
-
-import com.google.android.gms.maps.model.LatLng;
+import java.util.List;
 
 public class Service implements Serializable {
     private final String nume, nrTelefon;
     private final ArrayList<Tehnician> tehnicieni;
     private final ArrayList<String> servicii;
     private final double lat, lng;
+    private final List<Recenzie> recenzii;
+    private final String documentName;
 
-    public Service(String nume, String nrTelefon, ArrayList<Tehnician> tehnicieni, ArrayList<String> servicii, GeoPoint locatie) {
+    public Service(String nume, String nrTelefon, ArrayList<Tehnician> tehnicieni, ArrayList<String> servicii, GeoPoint locatie, List<Recenzie> recenzii, String documentName) {
         this.nume = nume;
         this.nrTelefon = nrTelefon;
         this.tehnicieni = tehnicieni;
         this.lat = locatie.getLatitude();
         this.lng = locatie.getLongitude();
-        Collections.sort(tehnicieni);
-
         this.servicii = servicii;
+        this.recenzii = recenzii;
+        this.documentName = documentName;
+
+        Collections.sort(tehnicieni);
         Collections.sort(servicii);
+        Collections.sort(recenzii);
     }
 
     public String getNume() {
@@ -74,6 +79,14 @@ public class Service implements Serializable {
             }
         }
         return stringBuilder.toString();
+    }
+
+    public List<Recenzie> getRecenzii() {
+        return recenzii;
+    }
+
+    public String getDocumentName() {
+        return documentName;
     }
 
     @NonNull

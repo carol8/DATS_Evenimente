@@ -36,5 +36,9 @@
     <string name="itemServiceHarta">Harta care afiseaza unde este service-ul</string>
     <string name="itemServiceButon">Butonul cu care apelam service-ul</string>
     <string name="serviciiDefaultLocatieText">Locatie: nu am reusit sa obtinem date despre locatie</string>
+    <string name="serviceReviewButtonText">Review-uri</string>
+    <string name="recenzieEditTextr">Recenzie…</string>
+    <string name="trimiteReviewButton">Trimite\nreview</string>
+    <string name="numeUtilizatorEditText">Nume utilizator…</string>
 
 </resources>

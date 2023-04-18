@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
@@ -29,10 +28,10 @@
         <entry key="..\:/OneDrive - Technical University of Cluj-Napoca/Proiecte/Paco/DATS Evenimente/Android/Versions/DATSEvenimente6/app/src/main/res/layout/activity_nume_servicii.xml" value="0.33" />
         <entry key="..\:/OneDrive - Technical University of Cluj-Napoca/Proiecte/Paco/DATS Evenimente/Android/Versions/DATSEvenimente6/app/src/main/res/layout/activity_servicii_servicii.xml" value="0.17147922998986828" />
         <entry key="..\:/OneDrive - Technical University of Cluj-Napoca/Proiecte/Paco/DATS Evenimente/Android/Versions/DATSEvenimente6/app/src/main/res/layout/evenimente.xml" value="0.17831813576494426" />
-        <entry key="..\:/OneDrive - Technical University of Cluj-Napoca/Proiecte/Paco/DATS Evenimente/Android/Versions/DATSEvenimente6/app/src/main/res/layout/item_event.xml" value="0.5" />
+        <entry key="..\:/OneDrive - Technical University of Cluj-Napoca/Proiecte/Paco/DATS Evenimente/Android/Versions/DATSEvenimente6/app/src/main/res/layout/item_event.xml" value="0.33" />
         <entry key="..\:/OneDrive - Technical University of Cluj-Napoca/Proiecte/Paco/DATS Evenimente/Android/Versions/DATSEvenimente6/app/src/main/res/layout/item_filtrare.xml" value="0.67" />
         <entry key="..\:/OneDrive - Technical University of Cluj-Napoca/Proiecte/Paco/DATS Evenimente/Android/Versions/DATSEvenimente6/app/src/main/res/layout/item_nume.xml" value="0.33" />
-        <entry key="..\:/OneDrive - Technical University of Cluj-Napoca/Proiecte/Paco/DATS Evenimente/Android/Versions/DATSEvenimente6/app/src/main/res/layout/item_service.xml" value="0.5" />
+        <entry key="..\:/OneDrive - Technical University of Cluj-Napoca/Proiecte/Paco/DATS Evenimente/Android/Versions/DATSEvenimente6/app/src/main/res/layout/item_service.xml" value="0.3125" />
         <entry key="..\:/OneDrive - Technical University of Cluj-Napoca/Proiecte/Paco/DATS Evenimente/Android/Versions/DATSEvenimente6/app/src/main/res/layout/service.xml" value="0.3532608695652174" />
         <entry key="..\:/OneDrive - Technical University of Cluj-Napoca/Proiecte/Paco/DATS Evenimente/Android/Versions/DATSEvenimente6/app/src/main/res/menu/popup_sortare.xml" value="0.36666666666666664" />
         <entry key="..\:/OneDrive - Technical University of Cluj-Napoca/Proiecte/Paco/DATS Evenimente/Android/Versions/DATSEvenimente6/app/src/main/res/menu/toolbar_filter.xml" value="0.36666666666666664" />
@@ -41,7 +40,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_18" project-jdk-name="18" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

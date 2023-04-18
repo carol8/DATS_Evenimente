@@ -72,6 +72,8 @@ public class ServiciiAdapter extends RecyclerView.Adapter<ServiciiAdapter.ViewHo
         }
         holder.callButton.setText(R.string.buton_apel);
         holder.callButton.setEnabled(true);
+        holder.reviewsButton.setText(R.string.serviceReviewButtonText);
+        holder.reviewsButton.setEnabled(true);
         holder.setMapLocation(service.getLocatie());
 
         holder.callButton.setOnClickListener(view -> {
@@ -82,6 +84,12 @@ public class ServiciiAdapter extends RecyclerView.Adapter<ServiciiAdapter.ViewHo
             }catch (ActivityNotFoundException e){
                 Toast.makeText(holder.callButton.getContext(), "Numarul de telefon nu exista! Incercati mai tarziu", Toast.LENGTH_SHORT).show();
             }
+        });
+
+        holder.reviewsButton.setOnClickListener(view -> {
+            Intent recenziiIntent = new Intent(context, Recenzii.class);
+            recenziiIntent.putExtra("service", service);
+            context.startActivity(recenziiIntent);
         });
     }
 
@@ -143,6 +151,7 @@ public class ServiciiAdapter extends RecyclerView.Adapter<ServiciiAdapter.ViewHo
         public final TextView serviciiTextView;
         public final TextView locatieTextView;
         public final Button callButton;
+        public final Button reviewsButton;
         public final MapView mapView;
         public final Context context;
         private GoogleMap googleMap;
@@ -154,7 +163,8 @@ public class ServiciiAdapter extends RecyclerView.Adapter<ServiciiAdapter.ViewHo
             nrTelefonTextView = itemView.findViewById(R.id.serviceNrTelefon);
             serviciiTextView = itemView.findViewById(R.id.serviceServicii);
             locatieTextView = itemView.findViewById(R.id.serviceLocatie);
-            callButton = itemView.findViewById(R.id.serviceButon);
+            callButton = itemView.findViewById(R.id.serviceApeleazaButon);
+            reviewsButton = itemView.findViewById(R.id.serviceRecenziiButton);
             mapView = itemView.findViewById(R.id.serviceMapView);
 
             this.context = context;

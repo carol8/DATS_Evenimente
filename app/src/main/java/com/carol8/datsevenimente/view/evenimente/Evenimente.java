@@ -62,7 +62,7 @@ public class Evenimente extends Fragment {
                                     documentSnapshot.getString("url"),
                                     Objects.requireNonNull(documentSnapshot.getTimestamp("dataInceput")).toDate(),
                                     Objects.requireNonNull(documentSnapshot.getTimestamp("dataFinal")).toDate(),
-                                    firebaseStorage.getReference(documentSnapshot.getString("nume") + "/icon.jpg")));
+                                    firebaseStorage.getReference(documentSnapshot.getId() + "/icon.jpg")));
                         }
                         evenimenteAdapter.clear();
                         evenimenteAdapter.addAll(evenimente.getEvenimente());
